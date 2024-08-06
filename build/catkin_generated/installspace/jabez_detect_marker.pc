@@ -1,8 +1,0 @@
-prefix=/usr/local
-
-Name: jabez_detect_marker
-Description: Description of jabez_detect_marker
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 
