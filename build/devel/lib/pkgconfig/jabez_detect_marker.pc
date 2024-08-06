@@ -1,0 +1,8 @@
+prefix=/home/nghiaho/ros1_ws/src/jabez_detect_marker/build/devel
+
+Name: jabez_detect_marker
+Description: Description of jabez_detect_marker
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
