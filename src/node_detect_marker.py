@@ -16,7 +16,7 @@ class NodeDetectMarker():
         
         self.bridge = CvBridge()
         self.inputImage = None
-        self.markerSize = rospy.get_param('marker_size')
+        # self.markerSize = rospy.get_param('marker_size')
         
         self.triggerSub = rospy.Subscriber("input_trigger", Bool, self.triggerCallback, queue_size=1, tcp_nodelay=True)
         self.imageSub = rospy.Subscriber("input_image", Image, self.imageCallback, queue_size=1, tcp_nodelay=True)
@@ -92,7 +92,7 @@ class NodeDetectMarker():
         isDetected = False
         for contour in contours:
             x, y, w, h = cv2.boundingRect(contour)
-            if (w*h > self.markerSize) and (y > 360):
+            if (w*h > 15) and (y > 360):
                 # rospy.loginfo(f'Dectect')
                 cv2.rectangle(outImg, (x, y), (x + w, y + h), (0, 255, 0), 2)
                 isDetected = True
