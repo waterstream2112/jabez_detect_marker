@@ -1,10 +1,10 @@
 <launch>
     <node pkg="jabez_detect_marker" type="node_detect_marker.py" name="node_detect_marker"  output="screen">
         <remap from="/input_image" to="/camera"/>
-        <remap from="/input_trigger" to="/trigger_detection"/>
+        <remap from="/input_trigger" to="/trigger_detection_ghost"/>
 
         <remap from="/output_image" to="/detection_image"/>
-        <remap from="/output_result" to="/detection_result"/>
+        <remap from="/output_result" to="/detection_result_orin"/>
 
     </node>
 </launch>
