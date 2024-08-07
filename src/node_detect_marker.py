@@ -92,7 +92,7 @@ class NodeDetectMarker():
         for contour in contours:
             x, y, w, h = cv2.boundingRect(contour)
             # rospy.loginfo(f'xy = {x}, {y}')
-            if (w*h > 30) and (y > 360):
+            if (w*h > 20) and (y > 360):
                 cv2.rectangle(outImg, (x, y), (x + w, y + h), (0, 255, 0), 2)
                 isDetected = True
 
