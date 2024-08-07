@@ -50,7 +50,7 @@ class NodeDetectMarker():
             self.detectionResultPub.publish(Bool(result))    
             
             if (result):
-                rospy.loginfo("Markers detected!")
+                rospy.loginfo("Markers detected!!!!!!!!!!!!!!!!!!!!!!!")
             else:
                 rospy.loginfo("Markers NOT detected!")
                 
