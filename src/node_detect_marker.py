@@ -40,13 +40,18 @@ class NodeDetectMarker():
             outImgMsg = None
             result = self.processImage(self.inputImage, outImg)
             
+            if isinstance(outImg, np.ndarray):
+                rospy.loginfo("Publish result image")
+                outImgMsg = self.bridge.cv2_to_imgmsg(outImg, encoding='bgr8')
+                self.imagePub.publish(outImgMsg)
+            
             if (result):
+                rospy.loginfo("Markers detected!")
                 self.detectionResultPub.publish(True)
+            else:
+                rospy.loginfo("Markers NOT detected!")
                 
-                if isinstance(outImg, np.ndarray):
-                    rospy.loginfo("Publish result image")
-                    outImgMsg = self.bridge.cv2_to_imgmsg(outImg, encoding='bgr8')
-                    self.imagePub.publish(outImgMsg)
+                
         
         
     ##############
@@ -69,8 +74,8 @@ class NodeDetectMarker():
         hsv_image = cv2.cvtColor(inImg, cv2.COLOR_BGR2HSV)
         
         # Define range of red color in HSV
-        lower_red = np.array([170, 80, 80])
-        upper_red = np.array([179, 200, 200])
+        lower_red = np.array([160, 80, 80])
+        upper_red = np.array([179, 255, 255])
         
         # Threshold the HSV image to get only red colors
         mask = cv2.inRange(hsv_image, lower_red, upper_red)
@@ -83,7 +88,8 @@ class NodeDetectMarker():
         isDetected = False
         for contour in contours:
             x, y, w, h = cv2.boundingRect(contour)
-            if (w*h > 50) and (y > 160):
+            # rospy.loginfo(f'xy = {x}, {y}')
+            if (w*h > 30) and (y > 360):
                 cv2.rectangle(outImg, (x, y), (x + w, y + h), (0, 255, 0), 2)
                 isDetected = True
 

@@ -3,7 +3,7 @@
         <remap from="/input_image" to="/camera"/>
         <remap from="/input_trigger" to="/trigger_detection_ghost"/>
 
-        <remap from="/output_image" to="/detection_image"/>
+        <remap from="/output_image" to="/detection_image_orin"/>
         <remap from="/output_result" to="/detection_result_orin"/>
 
     </node>
