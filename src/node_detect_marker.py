@@ -40,14 +40,17 @@ class NodeDetectMarker():
             outImgMsg = None
             result = self.processImage(self.inputImage, outImg)
             
+            # publish result image 
             if isinstance(outImg, np.ndarray):
                 rospy.loginfo("Publish result image")
                 outImgMsg = self.bridge.cv2_to_imgmsg(outImg, encoding='bgr8')
                 self.imagePub.publish(outImgMsg)
+                
+            # publish detection result
+            self.detectionResultPub.publish(Bool(result))    
             
             if (result):
                 rospy.loginfo("Markers detected!")
-                self.detectionResultPub.publish(True)
             else:
                 rospy.loginfo("Markers NOT detected!")
                 
