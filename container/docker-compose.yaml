@@ -1,0 +1,23 @@
+
+services:
+  ros_master:
+    image: 8783645b6ebf
+    container_name: ros_master
+    command: roscore
+    network_mode: host
+    
+  jabez_detect_marker:
+    image: 8783645b6ebf
+    container_name: jabez_detect_marker
+    environment: 
+      - DISPLAY=$DISPLAY
+    depends_on:
+      - ros_master
+    volumes:
+      - $HOME/ros1_ws:/ros1_ws
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    entrypoint: ["/ros1_ws/src/jabez_detect_marker/container/startup.sh"]
+    stdin_open: true  # Keep stdin open for interactive use
+    tty: true         # Allocate a pseudo-TTY
+    network_mode: host
+
