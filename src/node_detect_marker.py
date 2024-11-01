@@ -67,6 +67,28 @@ class NodeDetectMarker():
             # Convert ROS Image message to OpenCV image
             self.inputImage = self.bridge.imgmsg_to_cv2(msg, desired_encoding='bgr8')
             
+            # Process image and publish result
+            if isinstance(self.inputImage, np.ndarray):
+                # Copy input image
+                outImg = self.inputImage.copy()
+                
+                outImgMsg = None
+                result = self.processImage(self.inputImage, outImg)
+                
+                # publish result image 
+                if isinstance(outImg, np.ndarray):
+                    rospy.loginfo("Publish result image")
+                    outImgMsg = self.bridge.cv2_to_imgmsg(outImg, encoding='bgr8')
+                    self.imagePub.publish(outImgMsg)
+                    
+                # publish detection result
+                self.detectionResultPub.publish(Bool(result))    
+                
+                if (result):
+                    rospy.loginfo("Markers detected!!!!!!!!!!!!!!!!!!!!!!!")
+                # else:
+                #     rospy.loginfo("Markers NOT detected!")
+            
         except CvBridgeError as e:
             print(e)
             
